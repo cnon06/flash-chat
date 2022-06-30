@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () async {
                 auth.createUserWithEmailAndPassword(
-                    email: "sinanalagoz689@gmail.com", password: "1234568");
+                    email: "sinanalagoz6894@gmail.com", password: "12345689");
               },
               child: Text("Press"),
             ),
