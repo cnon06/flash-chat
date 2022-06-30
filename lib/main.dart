@@ -3,9 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -28,22 +26,12 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-
-
-
-
-
-
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   final auth = FirebaseAuth.instance;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,23 +43,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             TextButton(
-
-              onPressed: () async
-              {
-
-                  auth.createUserWithEmailAndPassword(email: "sinanalagoz89@gmail.com", password: "123456");
-
+              onPressed: () async {
+                auth.createUserWithEmailAndPassword(
+                    email: "sinanalagoz689@gmail.com", password: "1234568");
               },
               child: Text("Press"),
-
             ),
-
           ],
         ),
       ),
-
     );
   }
 }
