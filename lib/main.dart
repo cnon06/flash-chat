@@ -1,3 +1,7 @@
+//import 'dart:html';
+
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,7 +40,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final auth = FirebaseAuth.instance;
+ 
   final firestore = FirebaseFirestore.instance;
 
   @override
@@ -49,14 +53,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("data"),
+
             TextButton(
               onPressed: () async {
-                //  auth.createUserWithEmailAndPassword( email: "sinanalagoz6894@gmail.com", password: "12345689");
-                firestore.collection("messages").add(
-                    {"text": "hi world", "sender": "hebehube@hebehube.com"});
+                
+                await for (var snapshot
+                    in firestore.collection("messages").snapshots()) {
+                  for (var msg in snapshot.docs) {
+                    print(msg.data());
+                  }
+                }
               },
-              child: Text("Send Data"),
+              child: Text("Snapshot"),
             ),
           ],
         ),
