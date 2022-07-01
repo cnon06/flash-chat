@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final auth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text("data"),
             TextButton(
               onPressed: () async {
-                auth.createUserWithEmailAndPassword(
-                    email: "sinanalagoz6894@gmail.com", password: "12345689");
+                //  auth.createUserWithEmailAndPassword( email: "sinanalagoz6894@gmail.com", password: "12345689");
+                firestore
+                    .collection("messages")
+                    .add({"text": "gggggrgf", "sender": "hhggg@nhgg"});
               },
-              child: Text("Press"),
+              child: Text("Send Data"),
             ),
           ],
         ),
