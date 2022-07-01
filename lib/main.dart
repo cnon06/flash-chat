@@ -53,9 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               onPressed: () async {
                 //  auth.createUserWithEmailAndPassword( email: "sinanalagoz6894@gmail.com", password: "12345689");
-                firestore
-                    .collection("messages")
-                    .add({"text": "gggggrgf", "sender": "hhggg@nhgg"});
+                firestore.collection("messages").add(
+                    {"text": "hi world", "sender": "hebehube@hebehube.com"});
               },
               child: Text("Send Data"),
             ),
