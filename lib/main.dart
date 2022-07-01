@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   }
                 }
               },
-              child: Text("Snapshot"),
+              child: Text("Get Data"),
             ),
           ],
         ),
