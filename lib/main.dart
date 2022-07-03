@@ -7,6 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:untitled54/messagesStream.dart';
+
+import 'constants.dart';
 
 //qqqqqfff
 
@@ -41,6 +44,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final firestore = FirebaseFirestore.instance;
+  final messageTextController = TextEditingController();
+  late String messageText;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -52,36 +58,45 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-                stream: firestore.collection("messages").snapshots(),
-                builder: (context, snapshot) {
-                  List<Text> messageWidgets = [];
-                  if (snapshot.hasData) {
-                    final messages = snapshot.data?.docs;
+           SizedBox(
+            height: 100,
+            child: MessagesStream()
+           ),
+           //Text("data"),
+            
+            
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 50,
+                    //width: 50,
+                    child: TextField(
+                      
+                      controller: messageTextController,
+                      onChanged: (value) {
+                        messageText = value;
+                      },
+                     decoration: kMessageTextFieldDecoration,
+                    ),
+                  ),
+                ),
+               TextButton(onPressed: () {
+                messageTextController.clear();
+                      firestore.collection('messages').add({
+                        'text': messageText,
+                        'sender': "sinan",//loggedInUser.email,
+                      });
+              },
+              child: Text("Send")),
+               // Text("data")
+              ],
+            ),
+            
+            
 
-                    for (var msg in messages!) {
-                      final messageText = msg.get("text");
-                      final messageSender = msg.get("sender");
-                      final messageWidget =
-                          Text("$messageText from $messageSender");
-                      messageWidgets.add(messageWidget);
-                    }
-                   
-                    print("dsddd: $messages");
-                     
-                  }
-
-                //return Text("fgfg");
-                  
-                  
-                  return Column(
-                    children:messageWidgets,
-                  );
-                  
-                  
-                  
-                }),
-            TextButton(
+            /*
+           TextButton(
               onPressed: () async {
                 await for (var snapshot
                     in firestore.collection("messages").snapshots()) {
@@ -92,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text("Get Data"),
             ),
+          */
           ],
         ),
       ),
