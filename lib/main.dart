@@ -46,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final firestore = FirebaseFirestore.instance;
   final messageTextController = TextEditingController();
   late String messageText;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -54,62 +53,56 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text("widget.title"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-           SizedBox(
-            height: 100,
-            child: MessagesStream()
-           ),
-           //Text("data"),
-            
-            
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 50,
-                    //width: 50,
-                    child: TextField(
-                      
-                      controller: messageTextController,
-                      onChanged: (value) {
-                        messageText = value;
-                      },
-                     decoration: kMessageTextFieldDecoration,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(flex: 10, child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: MessagesStream(),
+          )),
+          //Text("data"),
+
+          Expanded(
+            flex: 1,
+            child: Container(
+              decoration: kMessageContainerDecoration,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 50,
+                      //width: 50,
+                      child: TextField(
+                        controller: messageTextController,
+                        onChanged: (value) {
+                          messageText = value;
+                        },
+                        decoration: kMessageTextFieldDecoration,
+                      ),
                     ),
                   ),
-                ),
-               TextButton(onPressed: () {
-                messageTextController.clear();
-                      firestore.collection('messages').add({
-                        'text': messageText,
-                        'sender': "sinan",//loggedInUser.email,
-                      });
-              },
-              child: Text("Send")),
-               // Text("data")
-              ],
-            ),
+                  TextButton(
+                      onPressed: () {
+                        messageTextController.clear();
+                       
+                        if (messageText != "") 
+                        {
+                          firestore.collection('messages').add({
+                          'text': messageText,
+                          'sender': "sinan", //loggedInUser.email,
+                        });
+                        }
+                         messageText = "";
             
-            
-
-            /*
-           TextButton(
-              onPressed: () async {
-                await for (var snapshot
-                    in firestore.collection("messages").snapshots()) {
-                  for (var msg in snapshot.docs) {
-                    print(msg.data());
-                  }
-                }
-              },
-              child: Text("Get Data"),
+                       
+                      },
+                      child: Text("Send")),
+                  // Text("data")
+                ],
+              ),
             ),
-          */
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

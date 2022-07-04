@@ -5,3 +5,9 @@ const kMessageTextFieldDecoration = InputDecoration(
   hintText: 'Type your message here...',
   border: InputBorder.none,
 );
+
+const kMessageContainerDecoration = BoxDecoration(
+  border: Border(
+    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+  ),
+);
