@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled54/messagesStream.dart';
+import 'package:untitled54/sendtext.dart';
 
 import 'constants.dart';
 
@@ -43,9 +44,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final firestore = FirebaseFirestore.instance;
-  final messageTextController = TextEditingController();
-  late String messageText;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,51 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Expanded(flex: 10, child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: MessagesStream(),
-          )),
+          Expanded(flex: 10, child: MessagesStream()),
           //Text("data"),
 
           Expanded(
-            flex: 1,
-            child: Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 50,
-                      //width: 50,
-                      child: TextField(
-                        controller: messageTextController,
-                        onChanged: (value) {
-                          messageText = value;
-                        },
-                        decoration: kMessageTextFieldDecoration,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        messageTextController.clear();
-                       
-                        if (messageText != "") 
-                        {
-                          firestore.collection('messages').add({
-                          'text': messageText,
-                          'sender': "sinan", //loggedInUser.email,
-                        });
-                        }
-                         messageText = "";
-            
-                       
-                      },
-                      child: Text("Send")),
-                  // Text("data")
-                ],
-              ),
-            ),
+           flex: 1,
+            child: SendText(),
           ),
         ],
       ),
