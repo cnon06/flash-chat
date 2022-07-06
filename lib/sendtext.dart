@@ -26,25 +26,29 @@ class SendText extends StatelessWidget {
                       child: TextField(
                         
                         controller: messageTextController,
-                        onChanged: (value) {
+                       
+                       /*
+                       onChanged: (value) {
                           messageText = value;
                         },
+                       */
+                        
                         decoration: kMessageTextFieldDecoration,
                       ),
                     ),
                   ),
                   TextButton(
                       onPressed: () {
-                        messageTextController.clear();
-                       
-                        if (messageText != "") 
+                    
+                        if (messageTextController.text != "") 
                         {
                           firestore.collection('messages').add({
-                          'text': messageText,
-                          'sender': "sinan", //loggedInUser.email,
+                          'text': messageTextController.text.toString().trim(),
+                          'sender': "sinan",
+                          "date" : FieldValue.serverTimestamp(), //loggedInUser.email,
                         });
                         }
-                         messageText = "";
+                        messageTextController.clear();
             
                        
                       },

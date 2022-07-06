@@ -7,31 +7,33 @@ class MessageBuble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-      decoration: BoxDecoration(
+    return Flexible(
+      child: Container(
         
-        color: Colors.lightBlue,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-            BoxShadow(
-                color: Color.fromARGB(255, 187, 181, 181),
-                blurRadius: 2.0,
-                spreadRadius: 1,
-                offset: Offset(2, 2), // shadow direction: bottom right
-            )
-        ],
-    
-      ),
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          
+          color: Colors.lightBlue,
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), bottomLeft: Radius.circular(15), bottomRight: Radius.circular(15) ),// BorderRadius.circular(20),
+          boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 195, 189, 189),
+                  blurRadius: 2.0,
+                  spreadRadius: 1,
+                  offset: Offset(2, 2), // shadow direction: bottom right
+              )
+          ],
       
-      child: Text(text,
-      style: TextStyle(
-        fontSize: 18,
-        color: Colors.white
-      ),
-      )
-      );
+        ),
+        padding: EdgeInsets.all(5),
+        margin: EdgeInsets.all(5),
+        
+        child: Text(text,
+        style: TextStyle(
+          fontSize: 15,
+          color: Colors.white
+        ),
+        )
+        ),
+    );
   }
 }

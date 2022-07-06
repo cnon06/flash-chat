@@ -8,63 +8,37 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:untitled54/messagesStream.dart';
+import 'package:untitled54/register.dart';
 import 'package:untitled54/sendtext.dart';
 
+import 'chatscreen.dart';
 import 'constants.dart';
+import 'loginscreen.dart';
 
 //qqqqqfff
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(),
+      initialRoute: "/login",
+      routes:
+      {
+        '/register' : (context) => Register(),
+        '/login' : (context) => Login(),
+      '/chatScreen' : (context) => ChatScreen(),
+       // '/first' : (context) => screen1(),
+       // '/second' : (context) => screen2(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("widget.title"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(flex: 10, child: MessagesStream()),
-          //Text("data"),
-
-          Expanded(
-           flex: 1,
-            child: SendText(),
-          ),
-        ],
-      ),
-    );
-  }
-}
