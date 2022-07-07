@@ -39,7 +39,7 @@ class _MessagesStreamState extends State<MessagesStream> {
               final messageSender = msg.get("sender");
               //final messageWidget = Text("$messageText from $messageSender");
               final messageWidget =
-                  MessageBuble(text: "$messageText from $messageSender");
+                  MessageBuble(text:messageText, sender: messageSender);
               messageWidgets.add(Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [messageWidget],

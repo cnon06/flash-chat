@@ -15,9 +15,10 @@ class Login extends StatelessWidget {
     print("${emailTextController.text.toString()}");
     print("${passwordTextController.text.toString().trim()}");
 
-    //_auth.createUserWithEmailAndPassword(email: "hubew4@gmail.com", password: "123456");
+    //_auth.createUserWithEmailAndPassword(email: "sinan@gmail.com", password: "123456");
 
-    try {
+
+try {
       final user = await _auth.signInWithEmailAndPassword(
           //  email: "hubew4@gmail.com", password: "123456");
           email: emailTextController.text.toString().trim(),
@@ -31,6 +32,9 @@ class Login extends StatelessWidget {
     } catch (e) {
       print(e);
     }
+
+
+    
   }
 
   @override
