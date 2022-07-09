@@ -4,37 +4,44 @@ import 'package:flutter/material.dart';
 import 'button.dart';
 import 'constants.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
+
   //late String email;
   late String password;
+
   final emailTextController = TextEditingController();
+
   final passwordTextController = TextEditingController();
 
+  String errorMessages = "";
+
   void action(BuildContext context) async {
-    print("${emailTextController.text.toString()}");
-    print("${passwordTextController.text.toString().trim()}");
-
-    //_auth.createUserWithEmailAndPassword(email: "sinan@gmail.com", password: "123456");
-
-
-try {
+    try {
       final user = await _auth.signInWithEmailAndPassword(
           //  email: "hubew4@gmail.com", password: "123456");
           email: emailTextController.text.toString().trim(),
           password: passwordTextController.text.toString().trim());
+      // ignore: unnecessary_null_comparison
       if (user != null) {
-        //Navigator.pushNamed(context, ChatScreen.id);
-        Navigator.pushNamed(context, '/chatScreen');
         emailTextController.clear();
         passwordTextController.clear();
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/chatScreen');
       }
     } catch (e) {
+      setState(() {
+        errorMessages= e.toString();
+      });
       print(e);
     }
-
-
-    
   }
 
   @override
@@ -48,7 +55,7 @@ try {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextField(
               controller: emailTextController,
               keyboardType: TextInputType.emailAddress,
@@ -61,7 +68,7 @@ try {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextField(
               controller: passwordTextController,
               obscureText: true,
@@ -73,18 +80,24 @@ try {
                   hintText: 'Enter your password'),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Center(child: Text(
+              errorMessages == "" ? errorMessages : errorMessages.substring(errorMessages.indexOf(']')+1),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                
+                color:  Colors.red,
+              ),
+              )
+              ),
+          ),
           Button(
             label: "Login",
             action: action,
             // navigate: '/chatScreen',
           ),
-
-          /*
-           Button(
-            label: "Register",
-            navigate: '/register',
-          ),
-          */
+          
         ],
       ),
     );

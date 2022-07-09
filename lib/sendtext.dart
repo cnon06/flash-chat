@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 
 class SendText extends StatefulWidget {
+  const SendText({Key? key}) : super(key: key);
+
   @override
   State<SendText> createState() => _SendTextState();
 }
@@ -22,6 +24,7 @@ class _SendTextState extends State<SendText> {
 
  
   void currentUser() async {
+   
     User? user = await _auth.currentUser;
    
    // print("user: " + user.toString());
@@ -73,7 +76,7 @@ class _SendTextState extends State<SendText> {
                 }
                 messageTextController.clear();
               },
-              child: Text("Send")),
+              child: const Text("Send")),
           // Text("data")
         ],
       ),

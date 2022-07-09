@@ -1,10 +1,11 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled54/messagebuble.dart';
 
 class MessagesStream extends StatefulWidget {
-  MessagesStream({Key? key}) : super(key: key);
+  const MessagesStream({Key? key}) : super(key: key);
 
   @override
   State<MessagesStream> createState() => _MessagesStreamState();
@@ -18,7 +19,9 @@ class _MessagesStreamState extends State<MessagesStream> {
   String? userEmail;
 
   Future<String?> currentUser() async {
-    User? user = await _auth.currentUser;
+  // ignore: await_only_futures
+  User? user = await _auth.currentUser;
+    
     return user?.email.toString();
   }
 
@@ -28,22 +31,16 @@ class _MessagesStreamState extends State<MessagesStream> {
     return FutureBuilder<String?>(
         future: currentUser(),
         builder: (context, snapshot) {
-            var currenUser2 = snapshot.data;
-                  print("Current User2: "+currenUser2.toString());
+          var currenUser2 = snapshot.data;
+          //  print("Current User2: "+currenUser2.toString());
 
           if (snapshot.hasData) {
             return StreamBuilder<QuerySnapshot>(
-
-
-          
                 stream: firestore
                     .collection("messages")
                     .orderBy("date", descending: true)
-                    .startAfter([
-                  ""
-                ]).snapshots(), 
+                    .startAfter([""]).snapshots(),
                 builder: (context, snapshot) {
-                
                   List<Row> messageWidgets = [];
 
                   if (snapshot.hasData) {
@@ -52,7 +49,7 @@ class _MessagesStreamState extends State<MessagesStream> {
                     for (var msg in messages!) {
                       final messageText = msg.get("text");
                       final messageSender = msg.get("sender");
-                    
+
                       final messageWidget = MessageBuble(
                         text: messageText,
                         sender: messageSender,
@@ -70,10 +67,10 @@ class _MessagesStreamState extends State<MessagesStream> {
                     children: messageWidgets,
                   );
                 });
-          } else
-            return Text("There is an error");
+          } else {
+              return const Text("There is an error");
+          }
+          
         });
-
-  
   }
 }

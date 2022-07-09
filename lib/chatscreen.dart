@@ -40,12 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
+        children: const <Widget>[
          
           Expanded(flex: 10, child: MessagesStream()),
-         
-
-          Expanded(
+         Expanded(
            flex: 1,
             child: SendText(),
           ),
