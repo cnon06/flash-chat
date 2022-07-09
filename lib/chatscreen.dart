@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
          
           Expanded(flex: 10, child: MessagesStream()),
-          //Text("data"),
+         
 
           Expanded(
            flex: 1,

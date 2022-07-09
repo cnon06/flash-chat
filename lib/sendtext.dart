@@ -20,20 +20,14 @@ class _SendTextState extends State<SendText> {
 
   late String? userEmail;
 
-  //late String user = "";
+ 
   void currentUser() async {
     User? user = await _auth.currentUser;
-    //var gg = user;
-    print("user: " + user.toString());
+   
+   // print("user: " + user.toString());
    userEmail = user?.email.toString();
-    print("user: " + userEmail!);
-    // return userEmail;
-
-    /*
-       if (user != null) {
-        loggedInUser = user;
-      }
-      */
+   // print("user: " + userEmail!);
+    
   }
 
   @override

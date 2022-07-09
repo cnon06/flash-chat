@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       {
         '/register' : (context) => Register(),
         '/login' : (context) => Login(),
-      '/chatScreen' : (context) => ChatScreen(),
+      '/chatScreen' : (context) => const ChatScreen(),
        // '/first' : (context) => screen1(),
        // '/second' : (context) => screen2(),
       },
