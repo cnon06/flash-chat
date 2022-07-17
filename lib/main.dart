@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       routes:
       {
         '/register' : (context) => Register(),
-        '/login' : (context) => Login(),
+        '/login' : (context) => const Login(),
       '/chatScreen' : (context) => const ChatScreen(),
        // '/first' : (context) => screen1(),
        // '/second' : (context) => screen2(),

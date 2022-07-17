@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
 
   String errorMessages = "";
 
-  void action(BuildContext context) async {
+  void loginAction(BuildContext context) async {
     try {
       final user = await _auth.signInWithEmailAndPassword(
           //  email: "hubew4@gmail.com", password: "123456");
@@ -38,10 +38,39 @@ class _LoginState extends State<Login> {
       }
     } catch (e) {
       setState(() {
-        errorMessages= e.toString();
+        errorMessages = e.toString();
       });
       print(e);
     }
+  }
+
+  void registerAction(BuildContext context) async {
+  
+  
+   try {
+      final user = await _auth.createUserWithEmailAndPassword(
+          //  email: "hubew4@gmail.com", password: "123456");
+          email: emailTextController.text.toString().trim(),
+          password: passwordTextController.text.toString().trim());
+      // ignore: unnecessary_null_comparison
+      if (user != null) {
+        emailTextController.clear();
+        passwordTextController.clear();
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/chatScreen');
+      }
+    } catch (e) {
+      setState(() {
+        errorMessages = e.toString();
+      });
+      print(e);
+    }
+  
+   // Navigator.restorablePushNamed(context, '/register');
+   // Navigator.popAndPushNamed(context, '/register');
+   
+   
+   // Navigator.pushNamed(context, '/register');
   }
 
   @override
@@ -82,22 +111,27 @@ class _LoginState extends State<Login> {
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Center(child: Text(
-              errorMessages == "" ? errorMessages : errorMessages.substring(errorMessages.indexOf(']')+1),
+            child: Center(
+                child: Text(
+              errorMessages == ""
+                  ? errorMessages
+                  : errorMessages.substring(errorMessages.indexOf(']') + 1),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                
-                color:  Colors.red,
+                color: Colors.red,
               ),
-              )
-              ),
+            )),
           ),
           Button(
             label: "Login",
-            action: action,
+            action: loginAction,
             // navigate: '/chatScreen',
           ),
-          
+          Button(
+            label: "Register",
+            action: registerAction,
+            // navigate: '/chatScreen',
+          ),
         ],
       ),
     );
