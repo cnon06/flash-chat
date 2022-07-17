@@ -33,7 +33,7 @@ class Register extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextField(
               obscureText: true,
               textAlign: TextAlign.center,
